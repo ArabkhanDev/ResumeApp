@@ -14,9 +14,7 @@ import com.mycompany.dao.inter.UserDaoInter;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        
-        System.out.println("Hello");      
-        
+          
         UserDaoInter userDao = Context.instanceUserDao();
 //        List<User> list = userDao.getAll();
 //        userDao.removeUser(1);
