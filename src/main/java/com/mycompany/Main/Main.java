@@ -16,6 +16,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
           
         UserDaoInter userDao = Context.instanceUserDao();
+        System.out.println("salam");
 //        List<User> list = userDao.getAll();
 //        userDao.removeUser(1);
 //        List<User> list2 = userDao.getAll();
