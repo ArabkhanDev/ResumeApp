@@ -4,9 +4,12 @@
  */
 package com.mycompany.Main;
 
+import com.company.dao.impl.EmploymentHistoryDaoImpl;
 import com.company.dao.impl.UserDaoImpl;
-import com.company.dao.impl.UserDaoImpl2;
+import com.company.dao.impl.UserSkillDaoImpl;
+import com.mycompany.dao.inter.EmploymentHistoryDaoInter;
 import com.mycompany.dao.inter.UserDaoInter;
+import com.mycompany.dao.inter.UserSkillDaoInter;
 
 /**
  *
@@ -15,8 +18,16 @@ import com.mycompany.dao.inter.UserDaoInter;
 public class Context {
     
     public static UserDaoInter instanceUserDao(){
-        return new UserDaoImpl2();
+        return new UserDaoImpl();
     }
-    //asasa
+    
+    public static UserSkillDaoInter instanceUserSkillDao(){
+        return new UserSkillDaoImpl();
+    }
+    
+    public static EmploymentHistoryDaoInter instanceEmploymentHistoryDao(){
+        return new EmploymentHistoryDaoImpl();
+    }
+    
     
 }
