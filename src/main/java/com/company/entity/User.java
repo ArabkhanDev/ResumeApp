@@ -18,6 +18,7 @@ public class User {
     private String surname;
     private String phone;
     private String email;
+    private String profilDesc;
     private Date birthdate;
     private Country nationality;
     private Country birthplace;
@@ -32,7 +33,7 @@ public class User {
 
     
     
-    public User(int id, String name, String surname, String phone, String email, Date birthdate, Country nationality, Country birthplace) {
+    public User(int id, String name, String surname, String phone, String profileDesc, String email, Date birthdate, Country nationality, Country birthplace) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -41,6 +42,7 @@ public class User {
         this.birthdate = birthdate;
         this.nationality = nationality;
         this.birthplace = birthplace;
+        this.profilDesc = profileDesc;
     }
 
     
@@ -116,16 +118,21 @@ public class User {
     public void setSkills(List<UserSkill> Skills) {
         this.Skills = Skills;
     }
-    
-    
+
+    public String getProfilDesc() {
+        return profilDesc;
+    }
+
+    public void setProfilDesc(String profilDesc) {
+        this.profilDesc = profilDesc;
+    }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", email=" + email + ", birthdate=" + birthdate + ", nationality=" + nationality + ", birthplace=" + birthplace + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", email=" + email + ", profilDesc=" + profilDesc + ", birthdate=" + birthdate + ", nationality=" + nationality + ", birthplace=" + birthplace + ", Skills=" + Skills + '}';
     }
     
     
-
     
     
     

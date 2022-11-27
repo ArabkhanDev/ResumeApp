@@ -4,17 +4,33 @@
  */
 package main;
 
+import com.company.entity.User;
+import com.mycompany.Main.Context;
+import com.mycompany.dao.inter.UserDaoInter;
+
 /**
  *
  * @author SMART
  */
 public class Main extends javax.swing.JFrame {
-
+    
+    private UserDaoInter userDao = Context.instanceUserDao();
+    User loggedInUser;
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        loggedInUser = userDao.getById(6);
+        fillUserComponents();
+    }
+    
+    
+    private void fillUserComponents(){
+        txtName.setText(loggedInUser.getName());
+        txtSurname.setText(loggedInUser.getSurname());
+        txtAreaProfile.setText(loggedInUser.getProfilDesc());
+        
     }
 
     /**
@@ -30,7 +46,7 @@ public class Main extends javax.swing.JFrame {
         tpUserInfo = new javax.swing.JTabbedPane();
         pnlProfile = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAreaProfile = new javax.swing.JTextArea();
         pnlDetails = new javax.swing.JPanel();
         pnlSkills = new javax.swing.JPanel();
         pnlHistory = new javax.swing.JPanel();
@@ -39,12 +55,13 @@ public class Main extends javax.swing.JFrame {
         lblSurname = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtSurname = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAreaProfile.setColumns(20);
+        txtAreaProfile.setRows(5);
+        jScrollPane1.setViewportView(txtAreaProfile);
 
         javax.swing.GroupLayout pnlProfileLayout = new javax.swing.GroupLayout(pnlProfile);
         pnlProfile.setLayout(pnlProfileLayout);
@@ -118,6 +135,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlUserInfoLayout = new javax.swing.GroupLayout(pnlUserInfo);
         pnlUserInfo.setLayout(pnlUserInfoLayout);
         pnlUserInfoLayout.setHorizontalGroup(
@@ -129,9 +153,12 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(lblSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlUserInfoLayout.createSequentialGroup()
+                        .addComponent(txtSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSave))
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         pnlUserInfoLayout.setVerticalGroup(
             pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +170,8 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSurname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSurname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -157,7 +185,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(tpUserInfo, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
@@ -181,6 +209,18 @@ public class Main extends javax.swing.JFrame {
     private void txtSurnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSurnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSurnameActionPerformed
+   
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        String name = txtName.getText();
+        String surname = txtSurname.getText();
+        String profileDescription = txtAreaProfile.getText();
+        
+        loggedInUser.setName(name);
+        loggedInUser.setSurname(surname);
+        loggedInUser.setProfilDesc(profileDescription);
+        
+        userDao.updateUser(loggedInUser);
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,9 +259,9 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSave;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSurname;
     private javax.swing.JPanel pnlDetails;
@@ -230,6 +270,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSkills;
     private javax.swing.JPanel pnlUserInfo;
     private javax.swing.JTabbedPane tpUserInfo;
+    private javax.swing.JTextArea txtAreaProfile;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSurname;
     // End of variables declaration//GEN-END:variables
