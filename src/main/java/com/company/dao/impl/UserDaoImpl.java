@@ -1,4 +1,4 @@
-package com.company.dao.impl;
+    package com.company.dao.impl;
 
 import com.company.entity.Country;
 import com.company.entity.User;
@@ -66,13 +66,14 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
     @Override
     public boolean updateUser(User u) {
         try ( Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("update user set name=?,surname=?,phone=?,email=?,profile_description=? where id=?");
+            PreparedStatement stmt = c.prepareStatement("update user set name=?,surname=?,phone=?,email=?,profile_description=?,birthdate=? where id=?");
             stmt.setString(1, u.getName());
             stmt.setString(2, u.getSurname());
             stmt.setString(3, u.getPhone());
             stmt.setString(4, u.getEmail());
             stmt.setString(5, u.getProfilDesc());
-            stmt.setInt(6, u.getId());
+            stmt.setDate(6, u.getBirthdate());
+            stmt.setInt(7, u.getId());
             return stmt.execute();
         } catch (Exception ex) {
             ex.printStackTrace();
