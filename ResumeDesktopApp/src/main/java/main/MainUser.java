@@ -37,8 +37,9 @@ public class MainUser extends javax.swing.JFrame {
         txtSurname.setText(loggedInUser.getSurname());
         txtAreaProfile.setText(loggedInUser.getProfilDesc());
         txtPhone.setText(loggedInUser.getPhone());
-        Date dt = loggedInUser.getBirthdate();
+        txtAddress.setText(loggedInUser.getAddress());
         
+        Date dt = loggedInUser.getBirthdate();        
         String dtStr = sdf.format(dt);
         txtBirthdate.setText(dtStr);
         txtEmail.setText(loggedInUser.getEmail());
@@ -344,6 +345,7 @@ public class MainUser extends javax.swing.JFrame {
             String birthDate = txtBirthdate.getText();
             String email = txtEmail.getText();
             String phone = txtPhone.getText();
+            String Address = txtAddress.getText();
             
             java.util.Date dtUtil = sdf.parse(birthDate);
             long l = dtUtil.getTime();
@@ -353,6 +355,7 @@ public class MainUser extends javax.swing.JFrame {
             loggedInUser.setProfilDesc(profileDescription);
             loggedInUser.setEmail(email);
             loggedInUser.setPhone(phone);
+            loggedInUser.setAddress(Address);
             loggedInUser.setBirthdate(bd);
             
             userDao.updateUser(loggedInUser);

@@ -25,6 +25,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
         String phone = rs.getString("phone");
         String email = rs.getString("email");
         String profileDesc = rs.getString("profile_description");
+        String Address = rs.getString("address");
         int nationalityId = rs.getInt("nationality_id");
         int birthplaceId = rs.getInt("birthplace_id");
         String nationalityStr = rs.getString("nationality");
@@ -34,7 +35,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
         Country nationality = new Country(nationalityId, null, nationalityStr);
         Country birthplace = new Country(birthplaceId, birthplaceStr, null);
 
-        return new User(id, name, surname, phone, profileDesc, email, birthdate, nationality, birthplace);
+        return new User(id, name, surname, phone, profileDesc, Address, email, birthdate, nationality, birthplace);
     }
 
     @Override
@@ -73,7 +74,8 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             stmt.setString(4, u.getEmail());
             stmt.setString(5, u.getProfilDesc());
             stmt.setDate(6, u.getBirthdate());
-            stmt.setInt(7, u.getId());
+            stmt.setString(7, u.getAddress());
+            stmt.setInt(8, u.getId());
             return stmt.execute();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -127,7 +129,8 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             stmt.setString(2, u.getSurname());
             stmt.setString(3, u.getPhone());
             stmt.setString(4, u.getEmail());
-            stmt.setString(5, u.getEmail());          
+            stmt.setString(5, u.getProfilDesc());      
+            stmt.setString(6, u.getAddress()); 
             return stmt.execute();
         } catch (Exception ex) {
             ex.printStackTrace();
