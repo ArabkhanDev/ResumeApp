@@ -4,12 +4,15 @@
  */
 package main;
 
+import com.company.entity.Country;
 import com.company.entity.User;
 import com.mycompany.Main.Context;
+import com.mycompany.dao.inter.CountryDaoInter;
 import com.mycompany.dao.inter.UserDaoInter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +23,9 @@ import java.util.logging.Logger;
 public class MainUser extends javax.swing.JFrame {
     
     private UserDaoInter userDao = Context.instanceUserDao();
+    
+    private CountryDaoInter CountryDao = Context.instanceCountryDao();
+    
     User loggedInUser;
     /**
      * Creates new form Main
@@ -43,6 +49,18 @@ public class MainUser extends javax.swing.JFrame {
         String dtStr = sdf.format(dt);
         txtBirthdate.setText(dtStr);
         txtEmail.setText(loggedInUser.getEmail());
+        
+        
+        List<Country> countries = CountryDao.getAll();
+        for(Country c: countries){
+            cbCountry.addItem(c);
+        }
+        
+        List<Country> nationality = CountryDao.getAll();
+        for(Country c: nationality){
+            cbNationality.addItem(c);
+        }
+        
         
         
     }
@@ -149,10 +167,6 @@ public class MainUser extends javax.swing.JFrame {
         lblBirthdate.setBackground(new java.awt.Color(255, 102, 255));
         lblBirthdate.setText("Birthdate");
         lblBirthdate.setToolTipText("Enter your name");
-
-        cbCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Azerbaijan", "America" }));
-
-        cbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Azerbaijan", "America" }));
 
         javax.swing.GroupLayout pnlDetailsLayout = new javax.swing.GroupLayout(pnlDetails);
         pnlDetails.setLayout(pnlDetailsLayout);
@@ -347,9 +361,16 @@ public class MainUser extends javax.swing.JFrame {
             String phone = txtPhone.getText();
             String Address = txtAddress.getText();
             
+            
             java.util.Date dtUtil = sdf.parse(birthDate);
             long l = dtUtil.getTime();
             java.sql.Date bd = new Date(l);
+            
+            
+            Country country = (Country)cbCountry.getSelectedItem();
+            Country nationality = (Country)cbNationality.getSelectedItem();
+            
+            
             loggedInUser.setName(name);
             loggedInUser.setSurname(surname);
             loggedInUser.setProfilDesc(profileDescription);
@@ -357,8 +378,14 @@ public class MainUser extends javax.swing.JFrame {
             loggedInUser.setPhone(phone);
             loggedInUser.setAddress(Address);
             loggedInUser.setBirthdate(bd);
+            loggedInUser.setBirthplace(country);
+            loggedInUser.setNationality(nationality);
+            
+            
             
             userDao.updateUser(loggedInUser);
+            
+            
         } catch (ParseException ex) {
             Logger.getLogger(MainUser.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -419,8 +446,8 @@ public class MainUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<String> cbCountry;
-    private javax.swing.JComboBox<String> cbNationality;
+    private javax.swing.JComboBox<Country> cbCountry;
+    private javax.swing.JComboBox<Country> cbNationality;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblAddress;
