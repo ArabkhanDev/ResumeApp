@@ -15,10 +15,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author TURAL
- */
+
+
+
 public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
 
     public Country getCountry(ResultSet rs) throws SQLException {

@@ -5,16 +5,21 @@
 package com.mycompany.dao.inter;
 
 import com.company.entity.Country;
-import com.company.entity.User;
 import java.util.List;
 
-/**
- *
- * @author SMART
- */
+
+
+
 public interface CountryDaoInter {
+     
+    List<Country> getAll();
+     
+    public Country getById(int id);
+
+    boolean updateCountry(Country u);
     
-    public List<Country> getAll();
-    
+    boolean insertCountry(Country u);
+
+    boolean removeCountry(int id);
     
 }
