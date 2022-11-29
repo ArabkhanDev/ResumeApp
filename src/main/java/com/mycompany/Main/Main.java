@@ -4,7 +4,7 @@
  */
 package com.mycompany.Main;
 
-import com.mycompany.dao.inter.EmploymentHistoryDaoInter;
+import com.mycompany.dao.inter.EmployementHistoryDaoInter;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
           
-        EmploymentHistoryDaoInter dao = Context.instanceEmploymentHistoryDao();
+        EmployementHistoryDaoInter dao = Context.instanceEmploymentHistoryDao();
         
         System.out.println(dao.getAllEmploymentHistoryByUserId(6));
 

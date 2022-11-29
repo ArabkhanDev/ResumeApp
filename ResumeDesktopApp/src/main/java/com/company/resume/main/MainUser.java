@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package main;
+package com.company.resume.main;
 
+import com.company.resume.config.Config;
 import com.company.entity.Country;
 import com.company.entity.User;
 import com.mycompany.Main.Context;
@@ -26,14 +27,27 @@ public class MainUser extends javax.swing.JFrame {
     
     
     
-    User loggedInUser;
+    
     /**
      * Creates new form Main
      */
     public MainUser() {
         initComponents();
-        loggedInUser = userDao.getById(6);
+        Config.loggedInUser = userDao.getById(6);
+        fillUserComponents();
+        panelDetails.fillUserComponents();
+        panelProfile.fillUserComponents();
+        panelSkills.fillUserComponents();
+        panelEmployementHistory.fillUserComponents();
      
+    }
+    
+    
+    public void fillUserComponents() {
+        User loggedInUser = Config.loggedInUser;
+        txtName.setText(loggedInUser.getName());
+        txtSurname.setText(loggedInUser.getSurname());
+
     }
     
    
@@ -49,13 +63,10 @@ public class MainUser extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         tpUserInfo = new javax.swing.JTabbedPane();
-        pnlProfile = new javax.swing.JPanel();
-        profilePanel1 = new com.company.panel.ProfilePanel();
-        pnlDetails = new javax.swing.JPanel();
-        detailsPanel1 = new com.company.panel.DetailsPanel();
-        pnlSkills = new javax.swing.JPanel();
-        skillsPanel1 = new com.company.panel.SkillsPanel();
-        pnlHistory = new javax.swing.JPanel();
+        panelDetails = new com.company.resume.panel.DetailsPanel();
+        panelProfile = new com.company.resume.panel.ProfilePanel();
+        panelSkills = new com.company.resume.panel.SkillsPanel();
+        panelEmployementHistory = new com.company.resume.panel.EmployementHistoryPanel();
         pnlUserInfo = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         lblSurname = new javax.swing.JLabel();
@@ -65,84 +76,34 @@ public class MainUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout pnlProfileLayout = new javax.swing.GroupLayout(pnlProfile);
-        pnlProfile.setLayout(pnlProfileLayout);
-        pnlProfileLayout.setHorizontalGroup(
-            pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlProfileLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(profilePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlProfileLayout.setVerticalGroup(
-            pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlProfileLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(profilePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        tpUserInfo.addTab("Details", panelDetails);
+        tpUserInfo.addTab("Profile", panelProfile);
 
-        tpUserInfo.addTab("Profile", pnlProfile);
-
-        javax.swing.GroupLayout pnlDetailsLayout = new javax.swing.GroupLayout(pnlDetails);
-        pnlDetails.setLayout(pnlDetailsLayout);
-        pnlDetailsLayout.setHorizontalGroup(
-            pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDetailsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(detailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlDetailsLayout.setVerticalGroup(
-            pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDetailsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(detailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        tpUserInfo.addTab("Details", pnlDetails);
-
-        javax.swing.GroupLayout skillsPanel1Layout = new javax.swing.GroupLayout(skillsPanel1);
-        skillsPanel1.setLayout(skillsPanel1Layout);
-        skillsPanel1Layout.setHorizontalGroup(
-            skillsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
-        );
-        skillsPanel1Layout.setVerticalGroup(
-            skillsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnlSkillsLayout = new javax.swing.GroupLayout(pnlSkills);
-        pnlSkills.setLayout(pnlSkillsLayout);
-        pnlSkillsLayout.setHorizontalGroup(
-            pnlSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSkillsLayout.createSequentialGroup()
-                .addComponent(skillsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlSkillsLayout.setVerticalGroup(
-            pnlSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSkillsLayout.createSequentialGroup()
-                .addComponent(skillsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        tpUserInfo.addTab("Skills", pnlSkills);
-
-        javax.swing.GroupLayout pnlHistoryLayout = new javax.swing.GroupLayout(pnlHistory);
-        pnlHistory.setLayout(pnlHistoryLayout);
-        pnlHistoryLayout.setHorizontalGroup(
-            pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelSkillsLayout = new javax.swing.GroupLayout(panelSkills);
+        panelSkills.setLayout(panelSkillsLayout);
+        panelSkillsLayout.setHorizontalGroup(
+            panelSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 732, Short.MAX_VALUE)
         );
-        pnlHistoryLayout.setVerticalGroup(
-            pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelSkillsLayout.setVerticalGroup(
+            panelSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 508, Short.MAX_VALUE)
         );
 
-        tpUserInfo.addTab("Employement History", pnlHistory);
+        tpUserInfo.addTab("Skills", panelSkills);
+
+        javax.swing.GroupLayout panelEmployementHistoryLayout = new javax.swing.GroupLayout(panelEmployementHistory);
+        panelEmployementHistory.setLayout(panelEmployementHistoryLayout);
+        panelEmployementHistoryLayout.setHorizontalGroup(
+            panelEmployementHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 732, Short.MAX_VALUE)
+        );
+        panelEmployementHistoryLayout.setVerticalGroup(
+            panelEmployementHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 508, Short.MAX_VALUE)
+        );
+
+        tpUserInfo.addTab("Employement History", panelEmployementHistory);
 
         lblName.setBackground(new java.awt.Color(255, 102, 255));
         lblName.setText("Name");
@@ -243,43 +204,20 @@ public class MainUser extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSurnameActionPerformed
    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        try {
+        
             String name = txtName.getText();
             String surname = txtSurname.getText();
-            String profileDescription = txtAreaProfile.getText();
-            String birthDate = txtBirthdate.getText();
-            String email = txtEmail.getText();
-            String phone = txtPhone.getText();
-            String Address = txtAddress.getText();
+            
+            User user = Config.loggedInUser;
+            user.setName(name);
+            user.setSurname(surname);
             
             
-            java.util.Date dtUtil = sdf.parse(birthDate);
-            long l = dtUtil.getTime();
-            java.sql.Date bd = new Date(l);
+            panelProfile.fillUser(user);
+            panelDetails.fillUser(user);
             
             
-            Country country = (Country)cbCountry.getSelectedItem();
-            Country nationality = (Country)cbNationality.getSelectedItem();
-            
-            
-            loggedInUser.setName(name);
-            loggedInUser.setSurname(surname);
-            loggedInUser.setProfilDesc(profileDescription);
-            loggedInUser.setEmail(email);
-            loggedInUser.setPhone(phone);
-            loggedInUser.setAddress(Address);
-            loggedInUser.setBirthdate(bd);
-            loggedInUser.setBirthplace(country);
-            loggedInUser.setNationality(nationality);
-            
-            
-            
-            userDao.updateUser(loggedInUser);
-            
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(MainUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            userDao.updateUser(user);           
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
@@ -321,17 +259,14 @@ public class MainUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
-    private com.company.panel.DetailsPanel detailsPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSurname;
-    private javax.swing.JPanel pnlDetails;
-    private javax.swing.JPanel pnlHistory;
-    private javax.swing.JPanel pnlProfile;
-    private javax.swing.JPanel pnlSkills;
+    private com.company.resume.panel.DetailsPanel panelDetails;
+    private com.company.resume.panel.EmployementHistoryPanel panelEmployementHistory;
+    private com.company.resume.panel.ProfilePanel panelProfile;
+    private com.company.resume.panel.SkillsPanel panelSkills;
     private javax.swing.JPanel pnlUserInfo;
-    private com.company.panel.ProfilePanel profilePanel1;
-    private com.company.panel.SkillsPanel skillsPanel1;
     private javax.swing.JTabbedPane tpUserInfo;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSurname;

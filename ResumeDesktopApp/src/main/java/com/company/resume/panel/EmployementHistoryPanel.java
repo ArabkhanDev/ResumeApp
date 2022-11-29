@@ -2,19 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.company.panel;
+package com.company.resume.panel;
+
+import com.company.entity.User;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import com.company.resume.config.Config;
 
 /**
  *
  * @author SMART
  */
-public class ProfilePanel extends javax.swing.JPanel {
+public class EmployementHistoryPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ProfilePanel
+     * Creates new form EmployementHistoryPanel
      */
-    public ProfilePanel() {
+    public EmployementHistoryPanel() {
         initComponents();
+    }
+    
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    public void fillUserComponents() {
+        
+
     }
 
     /**
@@ -26,28 +38,19 @@ public class ProfilePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAreaProfile = new javax.swing.JTextArea();
-
-        txtAreaProfile.setColumns(20);
-        txtAreaProfile.setRows(5);
-        jScrollPane1.setViewportView(txtAreaProfile);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtAreaProfile;
     // End of variables declaration//GEN-END:variables
 }

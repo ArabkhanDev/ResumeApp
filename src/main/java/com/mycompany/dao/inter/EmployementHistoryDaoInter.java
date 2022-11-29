@@ -4,15 +4,15 @@
  */
 package com.mycompany.dao.inter;
 
-import com.company.entity.EmploymentHistory;
+import com.company.entity.EmployementHistory;
 import java.util.List;
 
 /**
  *
  * @author SMART
  */
-public interface EmploymentHistoryDaoInter {
+public interface EmployementHistoryDaoInter {
     
       
-    public List<EmploymentHistory> getAllEmploymentHistoryByUserId(int userId);
+    public List<EmployementHistory> getAllEmploymentHistoryByUserId(int userId);
 }

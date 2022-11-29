@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author SMART
  */
-public class EmploymentHistory {
+public class EmployementHistory {
     
     private Integer id;
     private String header;
@@ -19,10 +19,10 @@ public class EmploymentHistory {
     private String jobDescription;
     private User user;
 
-    public EmploymentHistory() {
+    public EmployementHistory() {
     }
 
-    public EmploymentHistory(Integer id, String header, Date beginDate, Date enddate, String jobDescription, User user) {
+    public EmployementHistory(Integer id, String header, Date beginDate, Date enddate, String jobDescription, User user) {
         this.id = id;
         this.header = header;
         this.beginDate = beginDate;
