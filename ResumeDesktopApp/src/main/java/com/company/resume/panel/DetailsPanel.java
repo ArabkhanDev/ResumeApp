@@ -26,7 +26,16 @@ public class DetailsPanel extends javax.swing.JPanel {
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * Creates new form DetailsPanel
+     */
+    public DetailsPanel() {
+        initComponents();
+        
+    }
+    
     public void fillUserComponents() {
+        fillWindow();
         User loggedInUser = Config.loggedInUser;
         txtPhone.setText(loggedInUser.getPhone());
         txtAddress.setText(loggedInUser.getAddress());
@@ -66,13 +75,7 @@ public class DetailsPanel extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * Creates new form DetailsPanel
-     */
-    public DetailsPanel() {
-        initComponents();
-        fillWindow();
-    }
+    
 
     private void fillWindow() {
         List<Country> countries = CountryDao.getAll();

@@ -14,10 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author TURAL
- */
+
 public class SkillDaoImpl extends AbstractDAO implements SkillDaoInter {
 
     @Override

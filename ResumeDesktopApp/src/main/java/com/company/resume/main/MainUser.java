@@ -5,17 +5,9 @@
 package com.company.resume.main;
 
 import com.company.resume.config.Config;
-import com.company.entity.Country;
 import com.company.entity.User;
 import com.mycompany.Main.Context;
-import com.mycompany.dao.inter.CountryDaoInter;
 import com.mycompany.dao.inter.UserDaoInter;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -31,13 +23,16 @@ public class MainUser extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public MainUser() {
-        initComponents();
+    public MainUser() {        
         Config.loggedInUser = userDao.getById(6);
+        
+        initComponents();        
+        System.out.println("user in main="+Config.loggedInUser);     
         fillUserComponents();
+//        panelSkills.fillUserComponents();
         panelDetails.fillUserComponents();
-        panelProfile.fillUserComponents();
-        panelSkills.fillUserComponents();
+        panelProfile.fillUserComponents();  
+        panelskills.fillUserComponents();
         panelEmployementHistory.fillUserComponents();
      
     }
@@ -65,7 +60,7 @@ public class MainUser extends javax.swing.JFrame {
         tpUserInfo = new javax.swing.JTabbedPane();
         panelDetails = new com.company.resume.panel.DetailsPanel();
         panelProfile = new com.company.resume.panel.ProfilePanel();
-        panelSkills = new com.company.resume.panel.SkillsPanel();
+        panelskills = new com.company.resume.panel.SkillsPanel();
         panelEmployementHistory = new com.company.resume.panel.EmployementHistoryPanel();
         pnlUserInfo = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
@@ -78,19 +73,7 @@ public class MainUser extends javax.swing.JFrame {
 
         tpUserInfo.addTab("Details", panelDetails);
         tpUserInfo.addTab("Profile", panelProfile);
-
-        javax.swing.GroupLayout panelSkillsLayout = new javax.swing.GroupLayout(panelSkills);
-        panelSkills.setLayout(panelSkillsLayout);
-        panelSkillsLayout.setHorizontalGroup(
-            panelSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
-        );
-        panelSkillsLayout.setVerticalGroup(
-            panelSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
-        );
-
-        tpUserInfo.addTab("Skills", panelSkills);
+        tpUserInfo.addTab("Skills", panelskills);
 
         javax.swing.GroupLayout panelEmployementHistoryLayout = new javax.swing.GroupLayout(panelEmployementHistory);
         panelEmployementHistory.setLayout(panelEmployementHistoryLayout);
@@ -100,7 +83,7 @@ public class MainUser extends javax.swing.JFrame {
         );
         panelEmployementHistoryLayout.setVerticalGroup(
             panelEmployementHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
 
         tpUserInfo.addTab("Employement History", panelEmployementHistory);
@@ -265,7 +248,7 @@ public class MainUser extends javax.swing.JFrame {
     private com.company.resume.panel.DetailsPanel panelDetails;
     private com.company.resume.panel.EmployementHistoryPanel panelEmployementHistory;
     private com.company.resume.panel.ProfilePanel panelProfile;
-    private com.company.resume.panel.SkillsPanel panelSkills;
+    private com.company.resume.panel.SkillsPanel panelskills;
     private javax.swing.JPanel pnlUserInfo;
     private javax.swing.JTabbedPane tpUserInfo;
     private javax.swing.JTextField txtName;
