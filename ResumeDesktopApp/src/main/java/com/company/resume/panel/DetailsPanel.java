@@ -106,7 +106,7 @@ public class DetailsPanel extends javax.swing.JPanel {
         lblBirthPlace = new javax.swing.JLabel();
         lblNationality = new javax.swing.JLabel();
         lblBirthdate = new javax.swing.JLabel();
-        cbCountry = new com.company.resume.components.MyCombobox<>();
+        cbCountry = new javax.swing.JComboBox<>();
         cbNationality = new javax.swing.JComboBox<>();
 
         txtAddress.addActionListener(new java.awt.event.ActionListener() {
