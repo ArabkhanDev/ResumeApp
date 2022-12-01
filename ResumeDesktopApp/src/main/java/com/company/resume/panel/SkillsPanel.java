@@ -90,6 +90,7 @@ public class SkillsPanel extends javax.swing.JPanel {
         cbSkill = new javax.swing.JComboBox<>();
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         tblSkills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,6 +103,11 @@ public class SkillsPanel extends javax.swing.JPanel {
 
             }
         ));
+        tblSkills.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tblSkillsPropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSkills);
 
         lblSkill.setText("skill:");
@@ -128,28 +134,37 @@ public class SkillsPanel extends javax.swing.JPanel {
             }
         });
 
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblSkill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSkillName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPower)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sliderPower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSkillName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPower)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sliderPower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(162, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -165,7 +180,8 @@ public class SkillsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnDelete))
+                    .addComponent(btnDelete)
+                    .addComponent(btnSave))
                 .addGap(22, 22, 22))
         );
 
@@ -192,7 +208,7 @@ public class SkillsPanel extends javax.swing.JPanel {
         int index = tblSkills.getSelectedRow();
         UserSkill userSkill = list.get(index);
         userSkillDao.removeUserSkill(userSkill.getId());//remove UserSkill
-        fillTable();
+        fillWindow();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -204,18 +220,42 @@ public class SkillsPanel extends javax.swing.JPanel {
         }else{
             skill = (Skill) cbSkill.getSelectedItem();
         }
-        
-        
+              
        int power = sliderPower.getValue();
        UserSkill userSkill = new UserSkill(null, Config.loggedInUser, skill, power);
        userSkillDao.insertUserSkill(userSkill);
-       fillTable();
+       fillWindow();
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tblSkillsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblSkillsPropertyChange
+//        UserSkill userSkill = list.get(tblSkills.getSelectedRow());
+    }//GEN-LAST:event_tblSkillsPropertyChange
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        UserSkill selectedUserSkill = list.get(tblSkills.getSelectedRow());
+        String skillName = txtSkillName.getText();
+        Skill skill= null;
+        if(skillName!=null && !skillName.trim().isEmpty()){
+            skill = new Skill(0, skillName);
+            skillDao.insertSkill(skill);
+        }else{
+            skill = (Skill) cbSkill.getSelectedItem();
+        }
+              
+       int power = sliderPower.getValue();
+       
+       selectedUserSkill.setPower(power);
+       selectedUserSkill.setSkill(skill);
+       
+       userSkillDao.updateUserSkill(selectedUserSkill);
+       fillWindow();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<Skill> cbSkill;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
