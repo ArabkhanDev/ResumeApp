@@ -10,10 +10,10 @@ import com.mycompany.dao.inter.SkillDaoInter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class SkillDaoImpl extends AbstractDAO implements SkillDaoInter {
 
@@ -91,11 +91,18 @@ public class SkillDaoImpl extends AbstractDAO implements SkillDaoInter {
         boolean b = true;
         try {
             conn = connect();
-            PreparedStatement stmt = conn.prepareStatement("insert skill (name) VALUES (?);",Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement("insert skill (name) VALUES (?);", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, skl.getName());
             b = stmt.execute();
+
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            
+                if (generatedKeys.next()) {
+                skl.setId(generatedKeys.getInt(1));
+            }
+
             ResultSet genKeys = stmt.getGeneratedKeys();
-            if(genKeys.next()){
+            if (genKeys.next()) {
                 skl.setId(genKeys.getInt(1));
             }
 
@@ -106,7 +113,6 @@ public class SkillDaoImpl extends AbstractDAO implements SkillDaoInter {
         return b;
     }
 
-    
     @Override
     public boolean removeSkill(int id) {
         Connection conn;
@@ -116,7 +122,6 @@ public class SkillDaoImpl extends AbstractDAO implements SkillDaoInter {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM skill WHERE id=?;");
             stmt.setInt(1, id);
             return stmt.execute();
-
 
         } catch (Exception ex) {
             System.err.println(ex);

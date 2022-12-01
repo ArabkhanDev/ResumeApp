@@ -8,6 +8,7 @@ import com.mycompany.dao.inter.UserSkillDaoInter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,49 +18,111 @@ import java.util.List;
  */
 public class UserSkillDaoImpl extends AbstractDAO implements UserSkillDaoInter {
 
-    
+        public UserSkill getUserSkill(ResultSet rs) throws SQLException {
 
-    private UserSkill getUserSkill(ResultSet rs) throws Exception {
+        int userSkillId = rs.getInt("user_skill_id");
+
         int userId = rs.getInt("id");
-        int skillId = rs.getInt("skill_id");
-        String skillname = rs.getString("skill_name");
+        int skill_id = rs.getInt("skill_id");
+        String skill_name = rs.getString("skill_name");
         int power = rs.getInt("power");
-
-        Skill skill = new Skill(skillId, skillname);
-        User user = new User(userId);
-
-        return new UserSkill(null, user, skill, power);
+        UserSkill us = new UserSkill(userSkillId, new User(userId), new Skill(skill_id, skill_name), power);
+        System.out.println(us);
+        return us;
 
     }
 
     @Override
-    public List<UserSkill> getAllSkillByUserId(int userId) {
-        List<UserSkill> result = new ArrayList<>();
-        try ( Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("SELECT "
-                    + "	u.*, "
-                    + "	us.skill_id, "
-                    + "	s.NAME AS skill_name, "
-                    + "	us.power "
-                    + "FROM "
-                    + "	user_skill us "
-                    + "	LEFT JOIN USER u ON us.user_id = u.id "
-                    + "	LEFT JOIN skill s ON us.skill_id = s.id  "
-                    + "WHERE "
-                    + "	us.user_id = ?;");
-            stmt.setInt(1, userId);
+    public List<UserSkill> getAllSkillByUserId(int id) {
+        List<UserSkill> list = new ArrayList<>();
+        Connection conn;
+        try {
+            conn = connect();
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT "
+                    + " us.id as user_skill_id,"
+                    + " u.*,"
+                    + " us.skill_id,s.name AS Skill_name ,"
+                    + " us.power "
+                    + " FROM "
+                    + " user_skill us "
+                    + " LEFT JOIN user u ON us.user_id=u.id "
+                    + " LEFT JOIN skill s ON us.skill_id=s.id "
+                    + " WHERE us.user_id = ? ");
+            stmt.setInt(1, id);
             stmt.execute();
+
             ResultSet rs = stmt.getResultSet();
 
             while (rs.next()) {
-                UserSkill u = getUserSkill(rs);
-                result.add(u);
+
+                UserSkill us = getUserSkill(rs);
+                list.add(us);
+
             }
+        } catch (Exception ex) {
+
+        }
+        return list;
+    }
+
+    public boolean insertUserSkill(UserSkill u) {
+        Connection conn;
+        boolean b = true;
+        try {
+            conn = connect();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO user_skill (skill_id , user_id ,power) VALUES (? , ? ,  ? ) ;");
+
+            stmt.setInt(1, u.getSkill().getId());
+            stmt.setInt(2, u.getUser().getId());
+            stmt.setInt(3, u.getPower());
+
+            b = stmt.execute();
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println(ex);
+            b = false;
         }
-        return result;
+        return b;
+    }
+
+    public boolean updateUserSkill(UserSkill u) {
+        Connection conn;
+        boolean b = true;
+        try {
+            conn = connect();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE user_skill SET skill_id = ? , user_id =? ,power =?  WHERE id = ? ;");
+
+            stmt.setInt(1, u.getSkill().getId());
+            stmt.setInt(2, u.getUser().getId());
+            stmt.setInt(3, u.getPower());
+
+            stmt.setInt(4, u.getId());
+
+            b = stmt.execute();
+
+        } catch (Exception ex) {
+            System.err.println(ex);
+            b = false;
+        }
+        return b;
+    }
+
+    @Override
+    public boolean removeUserSkill(int id) {
+        Connection conn;
+        try {
+            conn = connect();
+
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM user_skill  WHERE ID=?");
+            stmt.setInt(1, id);
+            System.out.println("id :" + String.valueOf(id));
+            return stmt.execute();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
+        }
     }
 
 }

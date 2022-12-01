@@ -8,12 +8,15 @@ import com.company.entity.User;
 import com.company.entity.UserSkill;
 import java.util.List;
 
-/**
- *
- * @author SMART
- */
+
 public interface UserSkillDaoInter {
+     
+     
+    public List<UserSkill> getAllSkillByUserId(int id);
+
+    public boolean insertUserSkill(UserSkill u);
     
-      
-    public List<UserSkill> getAllSkillByUserId(int userId);
+    public boolean updateUserSkill(UserSkill u);
+    
+    public boolean removeUserSkill(int id);
 }

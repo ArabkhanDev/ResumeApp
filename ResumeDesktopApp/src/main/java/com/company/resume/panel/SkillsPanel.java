@@ -11,7 +11,6 @@ import com.company.resume.config.Config;
 import com.mycompany.Main.Context;
 import com.mycompany.dao.inter.SkillDaoInter;
 import com.mycompany.dao.inter.UserSkillDaoInter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -116,6 +115,11 @@ public class SkillsPanel extends javax.swing.JPanel {
         sliderPower.setValue(1);
 
         btnAdd.setText("+");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("-");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -185,8 +189,28 @@ public class SkillsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        int index = tblSkills.getSelectedRow();
+        UserSkill userSkill = list.get(index);
+        userSkillDao.removeUserSkill(userSkill.getId());//remove UserSkill
+        fillTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String skillName = txtSkillName.getText();
+        Skill skill= null;
+        if(skillName!=null && !skillName.trim().isEmpty()){
+            skill = new Skill(0, skillName);
+            skillDao.insertSkill(skill);
+        }else{
+            skill = (Skill) cbSkill.getSelectedItem();
+        }
+        
+        
+       int power = sliderPower.getValue();
+       UserSkill userSkill = new UserSkill(null, Config.loggedInUser, skill, power);
+       userSkillDao.insertUserSkill(userSkill);
+       fillTable();
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
