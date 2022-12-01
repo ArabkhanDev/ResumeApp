@@ -11,8 +11,9 @@ import com.company.resume.config.Config;
 import com.mycompany.Main.Context;
 import com.mycompany.dao.inter.SkillDaoInter;
 import com.mycompany.dao.inter.UserSkillDaoInter;
-import static java.util.Collections.list;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,14 +43,27 @@ public class SkillsPanel extends javax.swing.JPanel {
         
     }
     
+    private List<UserSkill> list;
+    
     private void fillTable(){
         User user = Config.loggedInUser;
         System.out.println("user="+user);
         int id = user.getId();
-        List<UserSkill> list = userSkillDao.getAllSkillByUserId(id);
+        list = userSkillDao.getAllSkillByUserId(id);
         
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new String[]{"Skill","Power"});
+        Vector<Vector> rows = new Vector<>();
+        for(UserSkill l: list){
+            Vector<Object> row = new Vector<>();
+            row.add(l.getSkill());
+            row.add(l.getPower());
+            rows.add(row);
+        }
+        
+        Vector<String> colums = new Vector<>();
+        colums.add("Skill");
+        colums.add("Power");
+              
+        DefaultTableModel model = new DefaultTableModel(rows, colums);
         
         tblSkills.setModel(model);
     }
