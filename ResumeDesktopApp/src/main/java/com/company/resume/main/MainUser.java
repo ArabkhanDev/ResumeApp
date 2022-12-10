@@ -62,6 +62,7 @@ public class MainUser extends javax.swing.JFrame {
         panelProfile = new com.company.resume.panel.ProfilePanel();
         panelskills = new com.company.resume.panel.SkillsPanel();
         panelEmployementHistory = new com.company.resume.panel.EmployementHistoryPanel();
+        employementHistoryPanel1 = new com.company.resume.panel.EmployementHistoryPanel();
         pnlUserInfo = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         lblSurname = new javax.swing.JLabel();
@@ -79,11 +80,13 @@ public class MainUser extends javax.swing.JFrame {
         panelEmployementHistory.setLayout(panelEmployementHistoryLayout);
         panelEmployementHistoryLayout.setHorizontalGroup(
             panelEmployementHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
+            .addGroup(panelEmployementHistoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(employementHistoryPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE))
         );
         panelEmployementHistoryLayout.setVerticalGroup(
             panelEmployementHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addComponent(employementHistoryPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
         );
 
         tpUserInfo.addTab("Employement History", panelEmployementHistory);
@@ -170,9 +173,8 @@ public class MainUser extends javax.swing.JFrame {
                 .addComponent(pnlUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tpUserInfo)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tpUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -242,6 +244,7 @@ public class MainUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
+    private com.company.resume.panel.EmployementHistoryPanel employementHistoryPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSurname;
