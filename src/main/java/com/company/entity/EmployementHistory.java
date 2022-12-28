@@ -15,7 +15,7 @@ public class EmployementHistory {
     private Integer id;
     private String header;
     private Date beginDate;
-    private Date enddate;
+    private Date endDate;
     private String jobDescription;
     private User user;
 
@@ -26,7 +26,7 @@ public class EmployementHistory {
         this.id = id;
         this.header = header;
         this.beginDate = beginDate;
-        this.enddate = enddate;
+        this.endDate = enddate;
         this.jobDescription = jobDescription;
         this.user = user;
     }
@@ -55,12 +55,12 @@ public class EmployementHistory {
         this.beginDate = beginDate;
     }
 
-    public Date getEnddate() {
-        return enddate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
+    public void setEndDate(Date enddate) {
+        this.endDate = enddate;
     }
 
     public String getJobDescription() {
@@ -81,7 +81,7 @@ public class EmployementHistory {
 
     @Override
     public String toString() {
-        return "EmploymentHistory{" + "id=" + id + ", header=" + header + ", beginDate=" + beginDate + ", enddate=" + enddate + ", jobDescription=" + jobDescription + ", user=" + user + '}';
+        return "EmploymentHistory{" + "id=" + id + ", header=" + header + ", beginDate=" + beginDate + ", enddate=" + endDate + ", jobDescription=" + jobDescription + ", user=" + user + '}';
     }
 
     

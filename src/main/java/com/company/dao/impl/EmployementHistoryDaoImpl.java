@@ -32,13 +32,14 @@ public class EmployementHistoryDaoImpl extends AbstractDAO implements Employemen
 
     @Override
     public List<EmployementHistory> getAllEmploymentHistoryByUserId(int userId) {
+        
         List<EmployementHistory> result = new ArrayList<>();
         try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("select * from employment_history where user_id = ?");
             stmt.setInt(1, userId);
             stmt.execute();
             ResultSet rs = stmt.getResultSet();
-            
+             
             while (rs.next()) {
                 EmployementHistory emp = getEmploymentHistory(rs);
                 result.add(emp);
@@ -49,5 +50,7 @@ public class EmployementHistoryDaoImpl extends AbstractDAO implements Employemen
         }
         return result;
     }
+
+   
 
 }

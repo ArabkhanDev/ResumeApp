@@ -4,9 +4,11 @@
  */
 package com.company.resume.main;
 
+import com.company.entity.EmployementHistory;
 import com.company.resume.config.Config;
 import com.company.entity.User;
 import com.mycompany.Main.Context;
+import com.mycompany.dao.inter.EmployementHistoryDaoInter;
 import com.mycompany.dao.inter.UserDaoInter;
 
 /**
@@ -23,27 +25,29 @@ public class MainUser extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public MainUser() {        
+    public MainUser() throws Exception {        
         Config.loggedInUser = userDao.getById(6);
         
         initComponents();        
         System.out.println("user in main="+Config.loggedInUser);     
+        System.out.println("EmploymentHistory in main="+ Config.loggedInEmploymentHistory);
         fillUserComponents();
-//        panelSkills.fillUserComponents();
         panelDetails.fillUserComponents();
         panelProfile.fillUserComponents();  
         panelskills.fillUserComponents();
-        panelEmployementHistory.fillUserComponents();
+//        panelEmployementHistory.fillUserComponents();
      
     }
     
     
-    public void fillUserComponents() {
+    private void fillUserComponents() {
         User loggedInUser = Config.loggedInUser;
         txtName.setText(loggedInUser.getName());
         txtSurname.setText(loggedInUser.getSurname());
 
     }
+    
+    
     
    
 
@@ -62,7 +66,7 @@ public class MainUser extends javax.swing.JFrame {
         panelProfile = new com.company.resume.panel.ProfilePanel();
         panelskills = new com.company.resume.panel.SkillsPanel();
         panelEmployementHistory = new com.company.resume.panel.EmployementHistoryPanel();
-        employementHistoryPanel1 = new com.company.resume.panel.EmployementHistoryPanel();
+        employementHistoryPanel2 = new com.company.resume.panel.EmployementHistoryPanel();
         pnlUserInfo = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         lblSurname = new javax.swing.JLabel();
@@ -82,11 +86,11 @@ public class MainUser extends javax.swing.JFrame {
             panelEmployementHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEmployementHistoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(employementHistoryPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE))
+                .addComponent(employementHistoryPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
         );
         panelEmployementHistoryLayout.setVerticalGroup(
             panelEmployementHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(employementHistoryPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+            .addComponent(employementHistoryPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
         );
 
         tpUserInfo.addTab("Employement History", panelEmployementHistory);
@@ -236,15 +240,19 @@ public class MainUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MainUser m = new MainUser();
-                m.setVisible(true);
+                try {
+                    MainUser m = new MainUser();
+                    m.setVisible(true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
-    private com.company.resume.panel.EmployementHistoryPanel employementHistoryPanel1;
+    private com.company.resume.panel.EmployementHistoryPanel employementHistoryPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSurname;
